@@ -51,6 +51,14 @@ class Jeedom {
         return this.dataRequest(device.cmd.off, false);
     }
 
+    dimLight(device, value) {
+        return this.dataRequestSlider(device.cmd.dim, value, false);
+    }
+
+    getDimLevel(device) {
+        return this.getDeviceStatus(device);
+    }
+
     dataRequest(cmdid, json = true) {
         return this.getServerInfo()
             .then((cfg) => {
@@ -67,6 +75,22 @@ class Jeedom {
             });
     }
     
+    dataRequestSlider(cmdid, sliderval, json = true) {
+        return this.getServerInfo()
+            .then((cfg) => {
+                return request({
+                    host: cfg.host,
+                    port: cfg.port,
+                    path: cfg.path,
+                    json
+                    }, {
+                     'apikey': cfg.apikey,
+                     'type': 'cmd',
+                     'id': cmdid,
+                     'slider': sliderval
+                    });
+            });
+    }
 }
 
 module.exports = Jeedom;
