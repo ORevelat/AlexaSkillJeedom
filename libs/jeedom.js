@@ -55,7 +55,6 @@ class Jeedom {
         return this.getServerInfo()
             .then((cfg) => {
                 return request({
-                    method: 'GET',
                     host: cfg.host,
                     port: cfg.port,
                     path: cfg.path,
