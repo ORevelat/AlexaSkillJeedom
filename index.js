@@ -38,7 +38,7 @@ exports.handler = function (request, context, cb) {
 		handler = powerHandler(jeedom, request, context, callback);
 	}
 	else if (namespace === 'Alexa.BrightnessController' && ['SetBrightness', 'AdjustBrightness'].indexOf(directive) !== -1) {
-		handler = brightnessHandler(vera, request, context, callback);
+		handler = brightnessHandler(jeedom, request, context, callback);
 	}
    else {
 		handler = Promise.reject( 
