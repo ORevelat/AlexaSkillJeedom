@@ -16,6 +16,10 @@ function uuid(fmt) {
     : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid);
 }
 
+function clamp(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+}
+
 function error(type, message, validRange) {
   const err = new Error(message);
   err.type = type;
@@ -26,5 +30,6 @@ function error(type, message, validRange) {
 module.exports = {
     log,
     uuid,
+    clamp,
     error,
 };

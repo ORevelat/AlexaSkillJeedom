@@ -9,3 +9,8 @@ Basé sur un skill de la box Vera.
 2018 06 18 - démarrage du projet / prise en main
 - config permettant de préciser les différents éléments
 - Discovery / State et PowerControl
+
+2018 06 20
+- BrightnessController
+- Support des remonté de valuer des thermomètres
+
