@@ -69,6 +69,8 @@ function createTemperatureSensorEndpoint(device) {
 		createDiscoveryCapability('Alexa.EndpointHealth', ['connectivity']),
 		createDiscoveryCapability('Alexa.TemperatureSensor', ['temperature']),
 	];
+
+	return endpoint;
 }
 
 function createStandardDeviceEndpointProps(device) {
