@@ -14,15 +14,6 @@ class Jeedom {
         this.Commands = cfg.config.cmds;
     }
 
-    getDeviceById(deviceId) {
-        for (var i = 0; i < this.Commands.length; ++i) {
-            if (this.Commands[i].id == deviceId)
-            return this.Commands[i];
-        }
-
-        return null;
-    }
-
     getById(deviceId) {
         const device = this.Commands.find((c) => c.id == deviceId);
         if (!device) {
@@ -43,6 +34,10 @@ class Jeedom {
         return this.dataRequest(device.cmd.state);
     }
 
+    getDeviceStatusAndTemperature(device) {
+        return Promise.all([this.dataRequest(device.cmd.state), this.dataRequest(device.cmd.temp)]);
+    }
+    
     turnSwitchOn(device) {
         return this.dataRequest(device.cmd.on, false);
     }

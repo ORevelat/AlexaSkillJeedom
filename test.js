@@ -33,8 +33,8 @@ let request = {
 };
 let context = null;
 
-//let handler = discoveryHandler(jeedom, request, context, callback);
-let handler = reportStateHandler(jeedom, request, context, callback);
+let handler = discoveryHandler(jeedom, request, context, callback);
+//let handler = reportStateHandler(jeedom, request, context, callback);
 //let handler = powerHandler(jeedom, request, context, callback);
 //let handler = brightnessHandler(jeedom, request, context, callback);
 

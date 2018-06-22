@@ -44,6 +44,9 @@ function createDimmerEndpoint(device) {
 		createDiscoveryCapability('Alexa.BrightnessController', ['brightness'])
 	];
 
+	if (device.cmd.temp)
+		endpoint.capabilities.push(createDiscoveryCapability('Alexa.TemperatureSensor', ['temperature']));
+
 	return endpoint;
 }
 
@@ -56,6 +59,9 @@ function createSwitchEndpoint(device) {
 		createDiscoveryCapability('Alexa.EndpointHealth', ['connectivity']),
 		createDiscoveryCapability('Alexa.PowerController', ['powerState'])
 	];
+
+	if (device.cmd.temp)
+		endpoint.capabilities.push(createDiscoveryCapability('Alexa.TemperatureSensor', ['temperature']));
 	
 	return endpoint;
 }
