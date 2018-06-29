@@ -22,9 +22,9 @@ function collectEndpoints(results) {
 function createEndpointFromDevice(device) {
 	switch (device.type)
 	{
-		case 'dimlight':
+		case 'dimmer':
 			return createDimmerEndpoint(device);
-		case 'light':
+		case 'switch':
 			return createSwitchEndpoint(device);
 		case 'temp':
 			return createTemperatureSensorEndpoint(device);
@@ -34,25 +34,32 @@ function createEndpointFromDevice(device) {
 }
 
 function createDimmerEndpoint(device) {
-	console.log(`[DEBUG] Jeedom adding dimlight device id=${device.id} / name=${device.name}`);
-
 	const endpoint = createStandardDeviceEndpointProps(device);
 	endpoint.capabilities = [
 		createDiscoveryCapability('Alexa'),
 		createDiscoveryCapability('Alexa.EndpointHealth', ['connectivity']),
 		createDiscoveryCapability('Alexa.PowerController', ['powerState']),
-		createDiscoveryCapability('Alexa.BrightnessController', ['brightness'])
 	];
 
-	if (device.cmd.temp)
+	if (device.categories == 'LIGHT') {
+		endpoint.capabilities.push(createDiscoveryCapability('Alexa.BrightnessController', ['brightness']));
+	}
+	else {
+		endpoint.capabilities.push(createDiscoveryCapability('Alexa.PowerLevelController', ['powerLevel']));
+	}
+
+	// if we have temperature sensor add it
+	// allow to say 
+	//    alexa turn on the living room
+	//    alexa what is the temperature in the living room
+	if (device.cmd.temp) {
 		endpoint.capabilities.push(createDiscoveryCapability('Alexa.TemperatureSensor', ['temperature']));
+	}
 
 	return endpoint;
 }
 
 function createSwitchEndpoint(device) {
-	console.log(`[DEBUG] Jeedom adding ligh device id=${device.id} / name=${device.name}`);
-
 	const endpoint = createStandardDeviceEndpointProps(device);
 	endpoint.capabilities = [
 		createDiscoveryCapability('Alexa'),
@@ -60,15 +67,15 @@ function createSwitchEndpoint(device) {
 		createDiscoveryCapability('Alexa.PowerController', ['powerState'])
 	];
 
-	if (device.cmd.temp)
+	// if we have temperature sensor add it
+	if (device.cmd.temp) {
 		endpoint.capabilities.push(createDiscoveryCapability('Alexa.TemperatureSensor', ['temperature']));
+	}
 	
 	return endpoint;
 }
 
 function createTemperatureSensorEndpoint(device) {
-	console.log(`[DEBUG] Jeedom adding temp device id=${device.id} / name=${device.name}`);
-
 	const endpoint = createStandardDeviceEndpointProps(device);
 	endpoint.capabilities = [
 		createDiscoveryCapability('Alexa'),
@@ -81,7 +88,7 @@ function createTemperatureSensorEndpoint(device) {
 
 function createStandardDeviceEndpointProps(device) {
 	return {
-		endpointId: `${device.id}`,
+		endpointId: `device-${device.id}`,
 		manufacturerName: 'Jeedom',
 		friendlyName: sanitizeFriendlyName(device.name),
 		description: device.description,

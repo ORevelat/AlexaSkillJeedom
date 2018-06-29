@@ -9,6 +9,7 @@ const discoveryHandler = require('./handlers/discovery-handler');
 const reportStateHandler = require('./handlers/reportstate-handler');
 const powerHandler = require('./handlers/power-handler');
 const brightnessHandler = require('./handlers/brightness-handler');
+const powerLevelHandler = require('./handlers/power-level-handler');
 
 exports.handler = function (request, context, cb) {
 
@@ -40,7 +41,10 @@ exports.handler = function (request, context, cb) {
 	else if (namespace === 'Alexa.BrightnessController' && ['SetBrightness', 'AdjustBrightness'].indexOf(directive) !== -1) {
 		handler = brightnessHandler(jeedom, request, context, callback);
 	}
-   else {
+	else if (namespace === 'Alexa.PowerLevelController' && ['SetPowerLevel', 'AdjustPowerLevel'].indexOf(directive) !== -1) {
+    	handler = powerLevelHandler(jeedom, request, context, callback);
+	}
+	else {
 		handler = Promise.reject( 
 			utils.error('INVALID_DIRECTIVE', `Unsupported namespace/directive: ${namespace}/${directive}`)
 		);

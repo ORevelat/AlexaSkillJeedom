@@ -24,7 +24,7 @@ let request = {
             name: 'AdjustBrightness'
         },
         endpoint: {
-            endpointId: 51
+            endpointId: 'device-51'
         },
         payload: {
             brightnessDelta: -10

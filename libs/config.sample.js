@@ -17,11 +17,11 @@ module.exports = {
         {
             id: '33',
             name: 'Lumiere du bureau',
-            type: 'light',
+            type: 'dimmer',
             description: 'Interrupteur',
-            categories: 'SWITCH',
+            categories: 'LIGHT',
             cmd: {
-                /*'dim': 277,*/
+                'dim': 277,
                 'on': 278,
                 'off': 279,
                 'state': 280,
@@ -30,7 +30,7 @@ module.exports = {
         {
             id: '31',
             name: 'Lumiere de la salle de bain',
-            type: 'light',
+            type: 'switch',
             description: 'Interrupteur',
             categories: 'SWITCH',
             cmd: {

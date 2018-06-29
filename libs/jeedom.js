@@ -30,14 +30,10 @@ class Jeedom {
         return Promise.resolve(this.Commands);
     }
 
-    getDeviceStatus(device) {
-        return this.dataRequest(device.cmd.state);
+    getDeviceStatus(cmdid) {
+        return this.dataRequest(cmdid);
     }
 
-    getDeviceStatusAndTemperature(device) {
-        return Promise.all([this.dataRequest(device.cmd.state), this.dataRequest(device.cmd.temp)]);
-    }
-    
     turnSwitchOn(device) {
         return this.dataRequest(device.cmd.on, false);
     }
@@ -48,10 +44,6 @@ class Jeedom {
 
     dimLight(device, value) {
         return this.dataRequestSlider(device.cmd.dim, value, false);
-    }
-
-    getDimLevel(device) {
-        return this.getDeviceStatus(device);
     }
 
     dataRequest(cmdid, json = true) {

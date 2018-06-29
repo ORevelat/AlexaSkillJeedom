@@ -7,7 +7,7 @@ module.exports = function powerHandler(jeedom, request) {
     const correlationToken = request.directive.header.correlationToken;
     const directive = request.directive.header.name || 'unknown';
 
-    const endpointId = request.directive.endpoint.endpointId;
+	const [endpointType, endpointId] = request.directive.endpoint.endpointId.split('-');
 
     return jeedom.getById(endpointId)
         .then((device) => changePower(device, directive, jeedom))
@@ -28,7 +28,6 @@ function changePower(device, directive, jeedom) {
 
     return action
         .then((state) => {
-            console.log('state: ' + state);
             return [
                 res.createContextProperty('Alexa.EndpointHealth', 'connectivity', {value: 'OK'}),
                 res.createContextProperty('Alexa.PowerController', 'powerState', Number(state) === 1 ? 'ON' : 'OFF', 1000)
