@@ -12,5 +12,9 @@ Basé sur un skill de la box Vera.
 
 2018 06 20
 - BrightnessController
-- Support des remonté de valuer des thermomètres
+- Support des remontées de valeur des thermomètres
+
+2018 06 29
+- Fix pour les températures associées à un autre 'équipement'
+- Support correct de l'interface BrightnessController et PowerLevelController
 
